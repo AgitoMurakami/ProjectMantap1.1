@@ -1,10 +1,19 @@
 package com.example.projectmantap11.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -17,6 +26,7 @@ import com.example.projectmantap11.R;
 import com.example.projectmantap11.models.Authorization;
 import com.example.projectmantap11.services.ApiService;
 import com.example.projectmantap11.services.RetrofitClientInstance;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.UnsupportedEncodingException;
 
@@ -30,17 +40,30 @@ public class LoginActivity extends AppCompatActivity {
     private Button submit;
     private Context context;
     ProgressDialog progressDoalog;
-    private EditText pass, id;
+    private TextInputEditText pass, id;
 
     private String bearerkey = "Bearer ";
 
     private String idasker = "mobileapp";
     private String passasker = "abcd";
 
+    //permissioncodes
+    int permissions_code = 42;
+    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE ,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+            , Manifest.permission.ACCESS_COARSE_LOCATION
+            , Manifest.permission.ACCESS_FINE_LOCATION
+            , Manifest.permission.INTERNET};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //prompt permissions
+        ActivityCompat.requestPermissions(this,
+                permissions,
+                permissions_code);
 
         context = this.getApplicationContext();
 
@@ -54,8 +77,8 @@ public class LoginActivity extends AppCompatActivity {
         context = this.getApplicationContext();
 
         //login mechanism
-        id = findViewById(R.id.userID);
-        pass = findViewById(R.id.password);
+        id = findViewById(R.id.login_user_id_input);
+        pass = findViewById(R.id.login_password_input);
 
         submit = findViewById(R.id.loginbutton);
 
@@ -140,6 +163,34 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, "Permission denied to read your External storage/" +
+                            "your internet / " +
+                            "your GPS", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private String encryptingString (String a) throws UnsupportedEncodingException {

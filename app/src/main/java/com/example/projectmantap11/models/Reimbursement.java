@@ -55,6 +55,10 @@ public class Reimbursement {
     @Expose
     private String modifyDate;
 
+    @SerializedName("name")
+    @Expose
+    private String name;
+
     ///////////////
     //CONSTRUCTOR
 
@@ -73,6 +77,14 @@ public class Reimbursement {
     ///////////////////////
     //GETTER AND SETTER
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;

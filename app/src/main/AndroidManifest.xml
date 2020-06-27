@@ -7,6 +7,8 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -29,7 +31,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeDark">
-        <activity android:name=".activity.AddReimbursmentDetailActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity"></activity>
+        <activity android:name=".activity.ReimbursementDetailActivity" />
+        <activity android:name=".activity.AddReimbursmentDetailActivity" />
         <activity android:name=".activity.VirtualCardDetailsActivity" />
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
@@ -38,7 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ReimburseDetailActivity" />
         <activity
             android:name="com.cooltechworks.creditcarddesign.CardEditActivity"
             android:screenOrientation="portrait" />

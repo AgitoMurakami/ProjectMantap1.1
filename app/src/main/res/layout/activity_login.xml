@@ -78,34 +78,66 @@
                     android:layout_gravity="center"
                     android:gravity="center">
 
-                    <EditText
-                        android:id="@+id/userID"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="28dp"
-                        android:layout_marginRight="28dp"
-                        android:hint="Username"
-                        android:textColorHint="@color/white"
-                        android:textSize="15dp"
-                        app:backgroundTint="@color/white"
-                        android:textColor="@color/white"
-                        android:paddingTop="15dp" />
-
-                    <EditText
-                        android:id="@+id/password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/login_user_id_input_layout"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="28dp"
                         android:layout_marginRight="28dp"
-                        android:hint="Password"
+                        android:layout_marginBottom="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
                         android:textColorHint="@color/white"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTintMode="@color/white"
+                        app:endIconMode="none"
+                        app:endIconTint="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/login_user_id_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="User ID"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            app:backgroundTint="@color/white"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/login_password_input_layout"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginRight="28dp"
                         android:layout_marginBottom="20dp"
-                        android:inputType="textPassword"
-                        app:backgroundTint="@color/white"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:errorEnabled="true"
+                        android:textColorHint="@color/white"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTintMode="@color/white"
+                        app:endIconMode="password_toggle"
+                        app:endIconTint="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/login_password_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Password"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            app:backgroundTint="@color/white"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <Button
                         android:textSize="16dp"

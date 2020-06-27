@@ -22,6 +22,8 @@ import retrofit2.Response;
 public class ItemDataSource extends PageKeyedDataSource<Integer, Reimbursement> {
 
     Context applicationContext = HomeActivity.getContextOfApplication();
+
+    public static final int PAGE_SIZE = 10;
     private int FIRST_PAGE = 0;
     private int CURRENT_PAGE;
     private int TOTAL_PAGE;
@@ -35,7 +37,10 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Reimbursement> 
         String key = prefs.getString("key", "empty");
         Log.d("KEYREIMBURSE", "loadInitial: " + key);
 
-        RetrofitResoClientInstance.getRetrofit().create(ApiService.class).daftarAllReimbursement("Bearer " + key, 0, FIRST_PAGE)
+        RetrofitResoClientInstance
+                .getRetrofit()
+                .create(ApiService.class)
+                .daftarAllReimbursement("Bearer " + key, 0, FIRST_PAGE)
                 .enqueue(new Callback<ReimbursementServerResponse>() {
                     @Override
                     public void onResponse(Call<ReimbursementServerResponse> call, Response<ReimbursementServerResponse> response) {
@@ -47,6 +52,8 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Reimbursement> 
 
                             Log.d("REIMBURSERESPONSE", "onResponse: " + response.body().content.toString());
                             TOTAL_PAGE = response.body().total_pages-1;
+                            Log.d("REIMBURSETOTALPAGE", "onResponse: "
+                                    + response.body().total_pages);
                             CURRENT_PAGE = response.body().number;
                         }
                     }
@@ -72,7 +79,7 @@ public class ItemDataSource extends PageKeyedDataSource<Integer, Reimbursement> 
                         //if the current page is greater than one
                         //we are decrementing the page number
                         //else there is no previous page
-                        Integer adjacentKey = (params.key > 1) ? params.key - 1 : null;
+                        Integer adjacentKey = (params.key > 0) ? params.key - 1 : null;
 
                         if (response.body() != null) {
 

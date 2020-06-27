@@ -34,8 +34,9 @@ public class ReimburseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     private final int VIEW_TYPE_LOADING = 1;
 
     private List<Reimbursement> dataList = new ArrayList<>();
+
+
     private final ListItemClickListener<Reimbursement> mOnclickListener;
-    private String textView = "";
 
     public interface ListItemClickListener<T> {
         void onListItemClicked(Reimbursement t);

@@ -1,5 +1,6 @@
 package com.example.projectmantap11.adapter.reimburse;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,8 +24,6 @@ import java.util.List;
 
 public class PagedRecyclerAdapter extends PagedListAdapter<Reimbursement, PagedRecyclerAdapter.PagedViewHolder> {
 
-
-    private List<Reimbursement> dataList = new ArrayList<>();
     private final ListItemClickListener<Reimbursement> mOnclickListener;
     private Context mCtx;
 
@@ -51,55 +50,58 @@ public class PagedRecyclerAdapter extends PagedListAdapter<Reimbursement, PagedR
 
         if (item != null) {
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnclickListener.onListItemClicked(item);
+                }
+            });
+            holder.title.setId(position);
+            final int i = holder.title.getId();
+            holder.title.setText(item.getNote());
+            Log.d("GETTITLE", "onBindViewHolder: " + item.getNote());
+
+            String[] arrOfStr = item.getCreatedDate().split("T");
+            holder.dates.setText(arrOfStr[0]);
+
+            double amount = Double.parseDouble(item.getUang());
+            DecimalFormat formatter = new DecimalFormat("#,###");
+
+            holder.duit.setText("Rp " + formatter.format(amount));
+            holder.status.setText(item.getStatus());
+
+            if (item.getStatus().equals("ACCEPTED")) {
+                holder.status.setText("accepted");
+                holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_green);
+            } else if (item.getStatus().equals("PENDING")) {
+                holder.status.setText("pending");
+                holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_yellow);
+            } else if (item.getStatus().equals("REJECTED")) {
+                holder.status.setText("rejected");
+                holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_red);
+            } else {
+                holder.status.setText("submitted");
+                holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_yellow);
+            }
+
         }else{
             Toast.makeText(mCtx, "Item is null", Toast.LENGTH_LONG).show();
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOnclickListener.onListItemClicked(dataList.get(position));
-            }
-        });
-        holder.title.setId(position);
-        final int i = holder.title.getId();
-        holder.title.setText(dataList.get(position).getNote());
-        Log.d("GETTITLE", "onBindViewHolder: " + dataList.get(position).getNote());
 
-        String[] arrOfStr = dataList.get(position).getCreatedDate().split("T");
-        holder.dates.setText(arrOfStr[0]);
-
-        double amount = Double.parseDouble(dataList.get(position).getUang());
-        DecimalFormat formatter = new DecimalFormat("#,###");
-
-        holder.duit.setText("Rp " + formatter.format(amount));
-        holder.status.setText(dataList.get(position).getStatus());
-
-        if (dataList.get(position).getStatus().equals("ACCEPTED")) {
-            holder.status.setText("accepted");
-            holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_green);
-        } else if (dataList.get(position).getStatus().equals("PENDING")) {
-            holder.status.setText("pending");
-            holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_yellow);
-        } else if (dataList.get(position).getStatus().equals("REJECTED")) {
-            holder.status.setText("rejected");
-            holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_red);
-        } else {
-            holder.status.setText("submitted");
-            holder.statusBlock.setBackgroundResource(R.drawable.background_statustext_yellow);
-        }
     }
 
     private static DiffUtil.ItemCallback<Reimbursement> DIFF_CALLBACK =
             new DiffUtil.ItemCallback<Reimbursement>() {
                 @Override
                 public boolean areItemsTheSame(Reimbursement oldItem, Reimbursement newItem) {
-                    return oldItem.getId() == newItem.getId();
+                    return oldItem.getId().equals(newItem.getId());
                 }
 
+                @SuppressLint("DiffUtilEquals")
                 @Override
                 public boolean areContentsTheSame(@NonNull Reimbursement oldItem, @NonNull Reimbursement newItem) {
-                    return false;
+                    return oldItem.equals(newItem);
                 }
             };
 
