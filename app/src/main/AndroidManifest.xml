@@ -9,14 +9,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+    <uses-feature android:name="android.hardware.fingerprint"
+        android:required="true"/>
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+
 
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -31,7 +35,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeDark">
-        <activity android:name=".activity.ChangePasswordActivity"></activity>
+        <activity android:name=".activity.FingerprintActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity" />
         <activity android:name=".activity.ReimbursementDetailActivity" />
         <activity android:name=".activity.AddReimbursmentDetailActivity" />
         <activity android:name=".activity.VirtualCardDetailsActivity" />
@@ -64,7 +69,6 @@
         <activity android:name=".activity.AddReimburseActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
     </application>
 
 </manifest>

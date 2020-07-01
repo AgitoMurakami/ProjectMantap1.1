@@ -66,4 +66,7 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //fingerprint
+    implementation 'androidx.biometric:biometric:1.0.0-alpha03'
 }

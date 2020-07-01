@@ -15,4 +15,5 @@
     <string name="no_active_vcard">No active virtual card found</string>
     <string name="request">Request</string>
     <string name="track">Tracking</string>
+    <string name="instructions">Place your fingerprint to verify your identity</string>
 </resources>
